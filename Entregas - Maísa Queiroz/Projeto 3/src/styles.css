@@ -1,0 +1,125 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.966 0.008 262);
+  --foreground: oklch(0.198 0.031 265);
+  --card: oklch(0.995 0.002 262);
+  --card-foreground: oklch(0.198 0.031 265);
+  --popover: oklch(0.995 0.002 262);
+  --popover-foreground: oklch(0.198 0.031 265);
+  --primary: oklch(0.511 0.242 277);
+  --primary-foreground: oklch(0.99 0.002 262);
+  --secondary: oklch(0.94 0.012 262);
+  --secondary-foreground: oklch(0.28 0.04 265);
+  --muted: oklch(0.94 0.012 262);
+  --muted-foreground: oklch(0.55 0.026 259);
+  --accent: oklch(0.715 0.135 215);
+  --accent-foreground: oklch(0.99 0.002 262);
+  --success: oklch(0.696 0.15 162);
+  --warning: oklch(0.769 0.168 70);
+  --destructive: oklch(0.6 0.23 27);
+  --destructive-foreground: oklch(0.99 0.002 262);
+  --border: oklch(0.9 0.014 262);
+  --input: oklch(0.9 0.014 262);
+  --ring: oklch(0.511 0.242 277);
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--accent)
+  );
+  --gradient-page: radial-gradient(
+    120% 120% at 15% 0%,
+    oklch(1 0 0) 0%,
+    oklch(0.966 0.008 262) 45%,
+    oklch(0.932 0.014 262) 100%
+  );
+  --shadow-glass: 0 18px 40px -24px oklch(0.28 0.04 265 / 0.45);
+  --shadow-brand: 0 12px 28px -12px oklch(0.511 0.242 277 / 0.45);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background: var(--gradient-page);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility glass {
+  background: color-mix(in oklab, white 62%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in oklab, white 70%, transparent);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-soft {
+  background: color-mix(in oklab, white 45%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in oklab, white 55%, transparent);
+}
+
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
